@@ -1,27 +1,37 @@
 <template>
-  <v-container py-0>
-    <v-layout row wrap>
-      <v-flex xs12>
-        <h1>todo_app</h1>
-        <p class="mb-0">Simply manage your tasks</p>
+  <div class="home">
+    <v-container grid-list-xl fluid>
+      <v-flex xs4>
+        <v-select label="Show only..."></v-select>
       </v-flex>
-    </v-layout>
-    <v-layout collumn wrap>
-      <v-flex xs12 my-3>
-        <v-card dark>
-          <v-card-text>Task 1</v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex xs12 my-3>
-        <v-card dark>
-          <v-card-text>Task 2</v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex xs12 my-3>
-        <v-card dark>
-          <v-card-text>Task 3</v-card-text>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+      <v-layout row wrap>
+        <TodoItem v-for="item in todoItems" 
+                  :key="item.id"
+                  :item="item" />
+        <v-flex xs12 sm6 md4>
+          <TodoItemForm />
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+import TodoItem from '@/components/TodoItem'
+import TodoItemForm from '@/components/TodoItemForm'
+
+export default {
+  components: {
+    TodoItem,
+    TodoItemForm
+  },
+  computed: {
+    ...mapState([
+      'themeIsDark',
+      'todoItems'
+    ])
+  }
+}
+</script>
