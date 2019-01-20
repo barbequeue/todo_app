@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 sm6 md4>
+  <v-flex xs12 sm6 md4 lg3>
     <v-card :dark="themeIsDark" :light="!themeIsDark">
       <v-card-title primary-title>
         <v-checkbox class="mt-0 pt-0 shrink" 

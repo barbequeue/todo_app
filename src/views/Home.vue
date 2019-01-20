@@ -1,14 +1,20 @@
 <template>
   <div class="home">
     <v-container grid-list-xl fluid>
-      <v-flex xs4>
-        <v-select label="Show only..."></v-select>
-      </v-flex>
       <v-layout row wrap>
-        <TodoItem v-for="item in todoItems" 
+        <v-flex xs4>
+          <v-select label="Show..."
+                    v-model="selectedFilter"
+                    :items="filters"
+                    itemText="name"
+                    itemValue="filterName"></v-select>
+        </v-flex>
+      </v-layout>
+      <v-layout row wrap>
+        <TodoItem v-for='item in allTodos'
                   :key="item.id"
                   :item="item" />
-        <v-flex xs12 sm6 md4>
+        <v-flex xs12 sm6 md4 lg3>
           <TodoItemForm />
         </v-flex>
       </v-layout>
@@ -17,21 +23,40 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import TodoItem from '@/components/TodoItem'
 import TodoItemForm from '@/components/TodoItemForm'
 
 export default {
+  data() {
+    return {
+      selectedFilter: "allTodos",
+      filters: [{
+        name: 'all',
+        filterName: 'allTodos'
+      }, {
+        name: 'checked',
+        filterName: 'checkedTodos'
+      }, {
+        name: 'non-checked',
+        filterName: 'uncheckedTodos'
+      }]
+    }
+  },
   components: {
     TodoItem,
     TodoItemForm
   },
   computed: {
     ...mapState([
-      'themeIsDark',
-      'todoItems'
-    ])
+      'themeIsDark'
+    ]),
+    ...mapGetters([
+      'allTodos',
+      'uncheckedTodos',
+      'checkedTodos'
+    ]),
   }
 }
 </script>
