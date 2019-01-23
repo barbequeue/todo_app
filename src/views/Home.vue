@@ -2,7 +2,7 @@
   <div class="home">
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-flex xs4>
+        <v-flex xs12 sm6 md4 lg3>
           <v-select label="Show..."
                     v-model="selectedFilter"
                     :items="filters"
@@ -56,7 +56,7 @@ export default {
       'allTodos',
       'uncheckedTodos',
       'checkedTodos'
-    ]),
+    ])
   }
 }
 </script>

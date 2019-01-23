@@ -46,11 +46,11 @@ export default {
       'deleteTodoItem',
       'checkoutTodoItem'
     ]),
-    deleteItem(index) {
-      this.deleteTodoItem(index)
+    deleteItem(id) {
+      this.deleteTodoItem(id)
     },
-    checkoutItem(index) {
-      this.checkoutTodoItem(index)
+    checkoutItem(id) {
+      this.checkoutTodoItem(id)
     }
   }
 }
