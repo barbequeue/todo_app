@@ -3,11 +3,11 @@
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
         <v-flex xs12 sm6 md4 lg3>
-          <TodosFilter defaultFilter="home" />
+          <TodosFilter defaultFilter="nonchecked" />
         </v-flex>
       </v-layout>
       <v-layout row wrap>
-        <TodoItem v-for='item in allTodos'
+        <TodoItem v-for='item in uncheckedTodos'
                   :key="item.id"
                   :item="item" />
         <v-flex xs12 sm6 md4 lg3>
@@ -36,7 +36,7 @@ export default {
       'themeIsDark'
     ]),
     ...mapGetters([
-      'allTodos'
+      'uncheckedTodos'
     ])
   }
 }
