@@ -1,57 +1,53 @@
 <template>
-  <v-flex xs12 sm6 md4 lg3>
-    <v-card :dark="themeIsDark" :light="!themeIsDark">
+  <div class="todo-item">
+    <v-card>
       <v-card-title primary-title>
-        <v-checkbox class="mt-0 pt-0 shrink" 
-                    @change="checkoutItem(item.id)"
-                    color="success" 
-                    :value="item.checked"
-                    :inputValue="item.checked"
-                    :hideDetails=true></v-checkbox>
-        <h3 class="headline mb-0">{{ item.title }}</h3>
+        <v-checkbox
+          class="mt-0 pt-0 shrink" 
+          @change="checkoutTodo(item.id)"
+          color="info" 
+          :value="item.checked"
+          :inputValue="item.checked"
+          :hideDetails=true 
+        />
+        <h3 class="headline mb-0">
+          {{ item.title }}
+        </h3>
       </v-card-title>
-      <v-card-text>{{ item.content }}</v-card-text>
+      <v-card-text class="todo-item__text">
+        {{ item.content }}
+      </v-card-text>
       <v-card-actions>
-        <v-btn @click="deleteItem(item.id)" 
-                color="error"
-                flat
-                >delete
+        <v-btn
+          @click="deleteTodo(item.id)" 
+          color="error"
+          flat
+        >
+          delete
         </v-btn>
       </v-card-actions>
     </v-card>
-  </v-flex>
+  </div>
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   props: {
-    item: {
-      type: Object,
-      required: true
-    }
-  },
-  computed: {
-    ...mapState([
-      'themeIsDark'
-    ])
+    item: Object,
   },
   methods: {
-    ...mapMutations([
-      'DELETE_TODO_ITEM',
-      'CHECKOUT_TODO_ITEM'
-    ]),
     ...mapActions([
-      'deleteTodoItem',
-      'checkoutTodoItem'
+      'deleteTodo',
+      'checkoutTodo'
     ]),
-    deleteItem(id) {
-      this.deleteTodoItem(id)
-    },
-    checkoutItem(id) {
-      this.checkoutTodoItem(id)
-    }
   }
 }
 </script>
+
+<style scoped>
+.todo-item__text {
+  word-break: break-all;
+}
+</style>

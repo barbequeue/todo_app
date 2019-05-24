@@ -1,31 +1,36 @@
 <template>
-  <v-app :dark="themeIsDark" :light="!themeIsDark">
+  <v-app :dark="isDarkTheme">
     <v-toolbar app>
       <v-toolbar-title>todo_app</v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-icon>fas fa-sun</v-icon>
-      <v-switch @change="this.SWITCH_THEME" class="shrink pt-0 ml-3 mr-2" color="white" :hideDetails=true></v-switch>
+      <v-switch
+        @change="this.switchTheme"
+        color="white" 
+        :hideDetails=true
+        class="shrink pt-0 ml-2"
+      />
       <v-icon>fas fa-moon</v-icon>
     </v-toolbar>
     <v-content>
-      <router-view/>
+      <router-view />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapState([
-      'themeIsDark'
-    ])
+    ...mapGetters([
+      'isDarkTheme'
+    ]),
   },
   methods: {
-    ...mapMutations([
-      'SWITCH_THEME'
+    ...mapActions([
+      'switchTheme'
     ])
-  }
+  },
 }
 </script>

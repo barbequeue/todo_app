@@ -1,43 +1,55 @@
 <template>
   <div class="home">
-    <v-container grid-list-xl fluid>
-      <v-layout row wrap>
-        <v-flex xs12 sm6 md4 lg3>
-          <TodosFilter defaultFilter="home" />
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap>
-        <TodoItem v-for='item in allTodos'
-                  :key="item.id"
-                  :item="item" />
-        <v-flex xs12 sm6 md4 lg3>
-          <TodoItemForm />
-        </v-flex>
-      </v-layout>
+    <v-container grid-list-md fluid>
+      <v-flex xs12 sm6 md4 lg3 mb-5>
+        <v-select
+          v-model="filter"
+          label="Show..."
+          :items="filters"
+        />
+      </v-flex>
+      <TodoList
+        :items="getItems(this.filter)"
+      />
     </v-container>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
-import TodosFilter from '@/components/TodosFilter'
-import TodoItem from '@/components/TodoItem'
-import TodoItemForm from '@/components/TodoItemForm'
+import TodoList from '@/components/TodoList'
 
 export default {
   components: {
-    TodoItem,
-    TodoItemForm,
-    TodosFilter
+    TodoList
   },
   computed: {
-    ...mapState([
-      'themeIsDark'
-    ]),
     ...mapGetters([
-      'allTodos'
-    ])
-  }
+      'allTodos',
+      'checkedTodos',
+      'uncheckedTodos'
+    ]),
+  },
+  data() {
+    return {
+      filter: 'allTodos',
+      filters: [{
+        text: 'all',
+        value: 'allTodos'
+      }, {
+        text: 'checked',
+        value: 'checkedTodos'
+      }, {
+        text: 'unchecked',
+        value: 'uncheckedTodos'
+      }]
+    }
+  },
+  methods: {
+    getItems(filter = 'allTodos') {
+      return this.$store.getters[filter];
+    }
+  },
 }
 </script>
